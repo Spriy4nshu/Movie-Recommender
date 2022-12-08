@@ -1,21 +1,13 @@
+from langcodes import*
+import langcodes
 import pandas as pd
 
-# list_df = pd.read_csv('data.tsv', sep='\t')
-fs="/t"
-table = str.maketrans('/t', fs)
-fName = 'title_akas.tsv'
-f = open(fName,'r', encoding="utf8")
+language = input("Enter the language of the Movie: ")
+cd = langcodes.find(language)
+genre = input("Enter the genre Amoung the following: \n Action, Adult, Comedy, Horror, Adventure, Animation, Biography, \n Crime, Documentary, Drama, Family, Fantasy, History, Music, \n Mystery, Romance, Sci-Fi, Thriller, War, Western, Musical, Sport, \n Reality-TV, Film-Noir, News, Short, Talk-Show, Game-Show  \n Your input: ")
 
-try:
-  line = f.readline()
-  x = 0
-  while x <= 10:
-    print(line.translate(table), end = "")
-    line = f.readline()
-    x += 1
+print(cd)
+data = [{'Language' : cd, 'Genre' : genre}]
+df = pd.DataFrame(data)
 
-except IOError:
-  print("Could not read file: " + fName)
-
-finally:
-  f.close()
+df.to_csv('user_data.csv')
